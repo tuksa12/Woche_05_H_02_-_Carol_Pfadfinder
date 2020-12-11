@@ -114,11 +114,11 @@ public class CarolPfadfinder {
 					 	if (instr[filled-(s_2+j)] == 'p' || instr[filled-(s_2+j)] == 'n'){
 							result = false;
 							break A;
-						}else if(j < (filled-1-2)){
-							if (instr[filled-(s_2+j)] == 'r' && instr[filled-(s_2+j+1)] == 'r'&& instr[filled-(s_2+j+2)] == 'r'){
+						}else if(j < (filled-1-1)){
+							if (instr[filled-(s_2+j)] == 'r' && instr[filled-(s_2+j+1)] == 'r'){
 								result = true;
 								break A;
-							}else if (instr[filled-(s_2+j)] == 'l' && instr[filled-(s_2+j+1)] == 'l' && instr[filled-(s_2+j+2)] == 'l' ){
+							}else if (instr[filled-(s_2+j)] == 'l' && instr[filled-(s_2+j+1)] == 'l' ){
 								result = true;
 								break A;}
 					 	}}
@@ -503,7 +503,7 @@ public class CarolPfadfinder {
 		return findInstructions(playground,x+X,y+Y,((direction+dire)%4),blocks+blo,findX,findY,instructions);
 
 }
-//public static char[] findOptimalSolution(int[][] playground, int x, int y, int direction, int blocks, int findX, int findY, int searchLimit){
-//findInstructions(playground,x,y,direction,blocks,findX,findY,instructions)
-//return ;
+public static char[] findOptimalSolution(int[][] playground, int x, int y, int direction, int blocks, int findX, int findY, int searchLimit){
+	char []test = new char [2];
+return test;}
 }
