@@ -32,12 +32,12 @@ public class CarolPfadfinder {
 		int findY = 4;
 
 		// this is expected to have an optimal solution with exactly 40 instructions
-		char []instructions = {'l','l','s','l','l','r','s','l','l','s','l','l','r','s','l','l','s','l','l','r','s','l','l','s','l','l','r','s','l','l','s','l','l','r','s'};
-		//char []instr ={'l','l','s','l','l','r','s'};
-		//int filled = 7;
+		char []instructions = null;
+		char []instr ={'s','r','r','s'};
+		int filled = 4;
 
 		//write(getMinimalStepsAndTurns(startX,startY,startDir,findX,findY));
-		if (findInstructions(playground, startX, startY, startDir,startBlocks,findX, findY,instructions) == true){
+		if (wasThereBefore(instr,filled) == true){
 			write("True");
 		}else {
 			write("False");}
@@ -111,14 +111,14 @@ public class CarolPfadfinder {
 				 if (instr[filled-(2+i)] == 's'){
 					 s_2 = filled-(2+i);
 					 for (int j = 1; j < (filled-1 - s_2) ; j++) {
-					 	if (instr[filled-(s_2+j)] == 'p' || instr[filled-(s_2+j)] == 'n'){
+					 	if (instr[filled-(s_2+j+1)] == 'p' || instr[filled-(s_2+j+1)] == 'n'){
 							result = false;
 							break A;
 						}else if(j < (filled-1-1)){
-							if (instr[filled-(s_2+j)] == 'r' && instr[filled-(s_2+j+1)] == 'r'){
+							if (instr[filled-(s_2+j+1)] == 'r' && instr[filled-(s_2+j+2)] == 'r'){
 								result = true;
 								break A;
-							}else if (instr[filled-(s_2+j)] == 'l' && instr[filled-(s_2+j+1)] == 'l' ){
+							}else if (instr[filled-(s_2+j+1)] == 'l' && instr[filled-(s_2+j+2)] == 'l' ){
 								result = true;
 								break A;}
 					 	}}
