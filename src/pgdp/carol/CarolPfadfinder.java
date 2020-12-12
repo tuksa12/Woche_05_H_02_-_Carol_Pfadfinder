@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class CarolPfadfinder {
 	public static int length = 0;
+	public static char [] new_instructions = new char[100];
 	public static void main(String[] args) {
 
 		/*
@@ -28,16 +29,16 @@ public class CarolPfadfinder {
 
 		printPlayground(playground, startX, startY, startDir, startBlocks);
 
-		int findX = 4;
+		int findX = 1;
 		int findY = 4;
 
 		// this is expected to have an optimal solution with exactly 40 instructions
-		char []instructions = null;
-		char []instr ={'s','r','r','s'};
-		int filled = 4;
+		char []instructions = {'s','s','l','r','p','r','s','s','l','r'};
+
+
 
 		//write(getMinimalStepsAndTurns(startX,startY,startDir,findX,findY));
-		if (wasThereBefore(instr,filled) == true){
+		if (findInstructions(playground,startX,startY,startDir,startBlocks,findX,findY,instructions) == true){
 			write("True");
 		}else {
 			write("False");}
@@ -75,21 +76,6 @@ public class CarolPfadfinder {
 		}
 	return result;
 	}
-
-
-	//!static boolean wasThereBefore(char[] instr, int filled){
-	//	int q = 0;
-	//	while(filled >=4 && q < (filled-3)) {
-	//		if (instr[filled - (4+q)] == 's' && instr[filled - (3+q)] == 'r' && instr[filled - (2+q)] == 'r' && instr[filled - 1] == 's' ) {
-	//			return true;
-	//		} else if (instr[filled - (4+q)] == 's' && instr[filled - (3+q)] == 'l' && instr[filled - (2+q)] == 'l' && instr[filled - 1] == 's'){
-	//			return true;
-	//		} else {
-	//			return false;
-	//		}
-	//	}
-	////		return false;
-	//}
 
 	static boolean wasThereBefore(char[] instr, int filled){
 		 //int [][]place = new int[40][40];
@@ -318,15 +304,14 @@ public class CarolPfadfinder {
 		int blo = 0;
 		int min = getMinimalStepsAndTurns(x,y,direction,findX,findY);
 
-		char [] new_instructions = new char[100];
 
-		if (playground[x][y] == playground[findX][findY]) {
+		if (x == findX && y == findY) {
 			if (length < instructions.length) {
 				for (int i = 0; i <= length; i++) {
 					instructions[i] = new_instructions[i];
 				}
-				for (int i = 0; length <= i && i < instructions.length; i++) {
-					instructions[i] = 'e';
+				for (int i = (instructions.length); length < i ; i--) {
+					instructions[i-1] = 'e';
 				}
 				return true;}
 			}
@@ -404,8 +389,8 @@ public class CarolPfadfinder {
 				new_instructions[length] = 'l';
 				dire = +1;
 			} else if (direction == 0) {
-				new_instructions[length] = 'r';
-				dire = 1;
+				new_instructions[length] = 'l';
+				dire ++;
 			} else if (direction == 3) {
 					if (blocks > 10) {
 						blo = -1;
@@ -414,7 +399,7 @@ public class CarolPfadfinder {
 					}
 					else {
 				new_instructions[length] = 'l';
-				dire = (dire + 1) % 4;}
+				dire ++;}
 			}
 
 		} else if (y < findY) {
@@ -487,8 +472,8 @@ public class CarolPfadfinder {
 					playground[x+1][y]++;
 					new_instructions[length] = 'p';
 				}else{
-					new_instructions[length] = 'r';
-					dire--;}
+					new_instructions[length] = 'l';
+					dire++;}
 			} else if (direction == 2) {
 				new_instructions[length] = 'l';
 				dire++;
@@ -503,6 +488,7 @@ public class CarolPfadfinder {
 		return findInstructions(playground,x+X,y+Y,((direction+dire)%4),blocks+blo,findX,findY,instructions);
 
 }
+
 public static char[] findOptimalSolution(int[][] playground, int x, int y, int direction, int blocks, int findX, int findY, int searchLimit){
 	char []test = new char [2];
 return test;}
