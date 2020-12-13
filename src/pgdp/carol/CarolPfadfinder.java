@@ -5,9 +5,10 @@ import static pgdp.MiniJava.*;
 import java.util.Arrays;
 
 public class CarolPfadfinder {
+	//Public variables to use in different methods
 	public static int length = 0;
 	public static char [] new_instructions = new char[100];
-	public static char []instructions = {'s','s','l','r','l','t','l'};
+	public static char []instructions = {'s','s','l','r','l','t','l'};//example
 	public static void main(String[] args) {
 
 		/*
@@ -35,9 +36,6 @@ public class CarolPfadfinder {
 
 		// this is expected to have an optimal solution with exactly 40 instructions
 
-
-
-
 		//write(getMinimalStepsAndTurns(startX,startY,startDir,findX,findY));
 		//if (findInstructions(playground,startX,startY,startDir,startBlocks,findX,findY,instructions) == true){
 		//	write("True");
@@ -57,6 +55,7 @@ public class CarolPfadfinder {
 	}
 	static boolean lastTurnsAreUseless(char[] instr, int filled) {
 		boolean result = false;
+		//Conditions to see if last commands are turns and if so to see if they are useless
 		if (filled >= 2) {
 			if (instr[filled - 2] == 'r' && instr[filled - 1] == 'l') {
 				result = true;
@@ -78,12 +77,11 @@ public class CarolPfadfinder {
 	}
 
 	static boolean wasThereBefore(char[] instr, int filled){
-		 //int [][]place = new int[40][40];
 		 boolean result = false;
-		 int s_2 = 0;
+		 int s_2 = 0;//s_2 is the second 's' command before the last one
 		 if (filled < 0){
 			 result = true;
-		 }
+		 }//Conditions to see if last command changes the current place
 		 if (instr[filled-1] == 'r'){
 			 result = true;
 		 }else if (instr[filled-1] == 'l'){
@@ -92,7 +90,7 @@ public class CarolPfadfinder {
 			 result = false;
 		 }else if(instr[filled-1] == 'n'){
 			 result = false;
-		 } else if (instr[filled-1] == 's'){
+		 } else if (instr[filled-1] == 's'){//Conditions to se if carol was in the same spot before se arrived again
 			 A:for (int i = 0; i <filled-1 ; i++) {
 				 if (instr[filled-(2+i)] == 's'){
 					 s_2 = filled-(2+i);
@@ -119,7 +117,7 @@ public class CarolPfadfinder {
 		int result = 0;
 		if (x == findX && y == findY){
 			return result;
-		}else{
+		}else{//Conditions to each possible relation of places between x - findX and y - findY
 			while (x != findX || y != findY){
 				if (x<findX && y == findY){
 					while (x<findX && y == findY){
@@ -298,15 +296,17 @@ public class CarolPfadfinder {
 
 
 	public static boolean findInstructions(int[][] playground, int x, int y, int direction, int blocks, int findX, int findY, char[] instructions){
+		//Variables for the recursive method
 		int X = 0;
 		int Y = 0;
 		int dire = 0;
 		int blo = 0;
+
 		int min = getMinimalStepsAndTurns(x,y,direction,findX,findY);
 
 
-		if (x == findX && y == findY) {
-			if (length < instructions.length) {
+		if (x == findX && y == findY) {//Method exit condition
+			if (length < instructions.length) {//length is the length of the new_instructions array
 				for (int i = 0; i <= length; i++) {
 					instructions[i] = new_instructions[i];
 				}
@@ -323,10 +323,11 @@ public class CarolPfadfinder {
 		else if (length >= instructions.length) {
 			return false;
 		}
-		else if (min > instructions.length) {
+		else if (min > instructions.length) {//If the length of the given array of commands is less than the min from the getMinimalStepsAndTurns
 			return false;
 		}
 
+		//Conditions that compares the current position and the final one, followed by conditions that determine the current direction
 
 		if (x < findX) {
 			if (direction == 0) {
@@ -489,12 +490,13 @@ public class CarolPfadfinder {
 		}
 		length++;
 
-
+		//Recursion of the method findInstructions
 		return findInstructions(playground,x+X,y+Y,((direction+dire)%4),blocks+blo,findX,findY,instructions);
 
 }
 
 public static char[] findOptimalSolution(int[][] playground, int x, int y, int direction, int blocks, int findX, int findY, int searchLimit){
+		//I couldn't find a way to find the Optimal Solution but the method should be able to determine if a searchLimit is less than it should be
 		char []result = null;
 		char []optimalSolution = new char[getMinimalStepsAndTurns(x, y, direction, findX, findY)];
 		if (searchLimit < getMinimalStepsAndTurns(x,y,direction,findX,findY)){
